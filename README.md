@@ -1,6 +1,6 @@
 # rust-chat
 
-A lightweight TCP chat server and client written in Rust.
+A lightweight TCP chat server with CLI and TUI clients written in Rust.
 
 ## Quick Start
 
@@ -15,14 +15,13 @@ The server listens on `0.0.0.0:2323`.
 This project is designed primarily for private use over Tailscale.
 
 The intended setup is:
-
 - one central TCP server
 - clients connect over Tailscale using MagicDNS or Tailscale IP
 - no public internet exposure by default
 
 Other VPN or tunneling methods may work, but they are not the primary deployment model for this project. If you expose the server outside your private tailnet, you are responsible for understanding the security and privacy implications.
 
-## Other Network Options
+### Other Network Options
 
 These may work, but they are not the primary or recommended setup for this project.
 
@@ -32,10 +31,10 @@ These may work, but they are not the primary or recommended setup for this proje
 - Cloudflare Tunnel
 - ngrok
 
-Warning:
+**Warning:**
 Exposing the chat server beyond your private network may increase risk. This project currently has no authentication beyond nickname uniqueness, no persistence, and no moderation/admin controls. Use public exposure methods at your own risk.
 
-Note:
+**Note:**
 TCP tunnel options expose the raw TCP chat service. They do not automatically create a web UI or browser client.
 
 ## Connecting
@@ -45,21 +44,22 @@ TCP tunnel options expose the raw TCP chat service. They do not automatically cr
 1. Install [Tailscale](https://tailscale.com/install)
 2. Ensure Tailscale is running on both machines
 3. Get your Tailscale IP:
-
    ```bash
    tailscale ip -4
    ```
-
 4. Connect from the client:
-
    ```bash
    nc <server-tailscale-ip> 2323
    ```
 
-   Or use the included TUI client:
-
+   Or use the included CLI client:
    ```bash
-   cargo run --bin rust-chat -- --host <server-tailscale-ip>
+   cargo run --bin cli -- <server-tailscale-ip>:2323
+   ```
+
+   Or use the included TUI client:
+   ```bash
+   cargo run --bin tui -- <server-tailscale-ip>:2323
    ```
 
 ### Option 2: Tailscale Funnel
@@ -71,9 +71,10 @@ tailscale funnel 2323
 ```
 
 Then clients can connect to your public Funnel URL.
+
 This changes the trust model and may expose the service more broadly. Use with caution.
 
-### Option 4: Connecting from Mobile Devices
+### Option 3: Connecting from Mobile Devices
 
 You can connect from your phone or tablet using a terminal app:
 
@@ -118,7 +119,7 @@ This exposes the raw TCP service. It does not provide a browser UI.
 ngrok tcp 2323
 ```
 
-Then connect to the provided ngrok URL.
+Then connect to the provided ngrok TCP endpoint.
 
 ## Usage
 
@@ -128,10 +129,16 @@ Then connect to the provided ngrok URL.
 cargo run
 ```
 
-### CLI Client
+Or explicitly:
 
 ```bash
 cargo run --bin rust-chat
+```
+
+### CLI Client
+
+```bash
+cargo run --bin cli -- <server-ip>:2323
 ```
 
 ### TUI Client
@@ -139,14 +146,16 @@ cargo run --bin rust-chat
 The TUI client provides an interactive terminal UI:
 
 ```bash
-cargo run --bin tui -- --host <server-ip> [--port <port>]
+cargo run --bin tui -- <server-ip>:2323
 ```
 
 Controls:
 
-- `Enter` - Send message
-- `Ctrl+c` - Quit
-- `Up/Down` - Navigate message history
+- `Enter` - send message
+- `Esc` - quit
+- `Up/Down` - scroll
+- `PageUp/PageDown` - page scroll
+- `End` - jump back to bottom/live mode
 
 ## Protocol
 
@@ -205,4 +214,8 @@ Not yet implemented:
 cargo build --release
 ```
 
-The binary will be at `target/release/rust-chat`.
+This produces binaries such as:
+
+- `target/release/rust-chat`
+- `target/release/cli`
+- `target/release/tui`
