@@ -232,3 +232,13 @@ This produces binaries such as:
 - `target/release/cli`
 - `target/release/tui`
 
+### Windows (from GitHub Actions artifact)
+
+1. Download the `tui-windows-x64` artifact from your GitHub Actions run
+2. Extract the `.exe` to a folder
+3. Run from Command Prompt:
+
+```cmd
+.\tui.exe <server-ip>:42069
+```
+
