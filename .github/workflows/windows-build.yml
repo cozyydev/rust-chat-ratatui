@@ -18,10 +18,10 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Build TUI release binary
-        run: cargo build --release --bin tui
+        run: cargo build --release --bin rustalk-tui
 
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
           name: tui-windows-x64
-          path: target/release/tui.exe
+          path: target/release/rustalk-tui.exe

@@ -13,7 +13,7 @@ A lightweight TCP chat server with CLI and TUI clients written in Rust.
 ```bash
 git clone https://github.com/cozyydev/rustalk.git
 cd rustalk
-cargo run
+cargo run --bin rustalk
 ```
 
 In another terminal:
@@ -28,7 +28,7 @@ cargo run -- <server-ip>:42069
 Download the `tui-windows-x64` artifact from your GitHub Actions run, then run:
 
 ```cmd
-.\tui.exe <server-ip>:42069
+.\rustalk-tui.exe <server-ip>:42069
 ```
 
 The server listens on `0.0.0.0:42069`.
