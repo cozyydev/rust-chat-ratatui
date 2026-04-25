@@ -1,19 +1,34 @@
-# rust-chat
+# rustalk
 
 A lightweight TCP chat server with CLI and TUI clients written in Rust.
 
+## Prerequisites
+
+- **Linux / macOS**: Install [Rust](https://rustup.rs)
+
 ## Quick Start
 
-Start the server:
+### Linux / macOS
 
 ```bash
+git clone https://github.com/cozyydev/rustalk.git
+cd rustalk
 cargo run
 ```
 
-In another terminal, start the client:
+In another terminal:
 
 ```bash
+cd rustalk
 cargo run -- <server-ip>:42069
+```
+
+### Windows
+
+Download the `tui-windows-x64` artifact from your GitHub Actions run, then run:
+
+```cmd
+.\tui.exe <server-ip>:42069
 ```
 
 The server listens on `0.0.0.0:42069`.
@@ -228,7 +243,7 @@ cargo build --release
 
 This produces binaries such as:
 
-- `target/release/rust-chat`
+- `target/release/rustalk`
 - `target/release/cli`
 - `target/release/tui`
 
@@ -241,4 +256,3 @@ This produces binaries such as:
 ```cmd
 .\tui.exe <server-ip>:42069
 ```
-
